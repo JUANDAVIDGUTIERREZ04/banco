@@ -1,6 +1,8 @@
 package com.sistemabancario.banco.Controllers;
 
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,14 +11,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
+
 import com.sistemabancario.banco.Models.Cuenta;
+
 import com.sistemabancario.banco.Services.CuentaService;
+import com.sistemabancario.banco.Services.TransaccionService;
 
 @Controller
 public class SaldoController {
 
     @Autowired
     private CuentaService cuentaService;
+
+    @Autowired 
+    private TransaccionService transaccionService;
+
     
 
     @GetMapping("/consultarUserSaldo")
@@ -60,6 +69,8 @@ public class SaldoController {
         return "administrador"; // Nombre de la vista HTML
     }
     
+    
+
 
 }
 

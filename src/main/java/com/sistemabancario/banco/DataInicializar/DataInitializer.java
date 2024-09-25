@@ -1,5 +1,6 @@
+
 package com.sistemabancario.banco.DataInicializar;
-/*
+/* 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -10,8 +11,11 @@ import com.sistemabancario.banco.Services.CuentaService;
 import com.sistemabancario.banco.Services.TransaccionService;
 import com.sistemabancario.banco.Services.UsuarioService;
 
+
+
 @Component
 public class DataInitializer implements CommandLineRunner {
+
 
     private final UsuarioService usuarioService;
     private final CuentaService cuentaService;
@@ -27,13 +31,13 @@ public class DataInitializer implements CommandLineRunner {
 public void run(String... args) throws Exception {
     // Crear usuarios
     Usuario usuario1 = new Usuario();
-    usuario1.setUsername("ana");
+    usuario1.setUsername("pedro");
     usuario1.setPassword("{noop}111"); // Asignar la contraseña en texto plano
-    usuario1.setRole("USER");
+    usuario1.setRole("ADMIN");
     usuarioService.guardarUsuario(usuario1);
 
     Usuario usuario2 = new Usuario();
-    usuario2.setUsername("olivia");
+    usuario2.setUsername("ana");
     usuario2.setPassword("{noop}111");
     usuario2.setRole("USER");
     usuarioService.guardarUsuario(usuario2);
@@ -54,13 +58,13 @@ public void run(String... args) throws Exception {
     transaccion1.setCuenta(cuenta1);
     transaccion1.setMonto(10000.0);
     transaccion1.setTipo("DEPOSITO");
-    transaccionService.guardarTransaccion(transaccion1);
+    transaccionService.registrarTransaccion(transaccion1);
 
     Transaccion transaccion2 = new Transaccion();
     transaccion2.setCuenta(cuenta2);
     transaccion2.setMonto(50.0);
     transaccion2.setTipo("RETIRADA");
-    transaccionService.guardarTransaccion(transaccion2);
+    transaccionService.registrarTransaccion(transaccion2);
 }
 }
 */
