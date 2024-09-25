@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultar Saldo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #74ebd5, #acb6e5); /* Gradiente de fondo */
+            font-family: 'Arial', sans-serif; /* Fuente personalizada */
+            color: #343a40; /* Color de texto */
+        }
+        .container {
+            background-color: #ffffff; /* Fondo blanco para el contenedor */
+            border-radius: 0.75rem; /* Bordes más redondeados */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra más profunda */
+            padding: 2rem; /* Espaciado interno */
+            margin-top: 50px; /* Margen superior */
+            transition: transform 0.3s; /* Efecto al pasar el ratón */
+        }
+        .container:hover {
+            transform: translateY(-5px); /* Levantar el contenedor al pasar el ratón */
+        }
+        h1 {
+            font-size: 2.2rem; /* Tamaño de fuente mayor */
+            text-align: center; /* Centrar el texto */
+            margin-bottom: 1rem; /* Margen inferior */
+        }
+        .saldo {
+            font-size: 1.5rem; /* Tamaño de fuente para el saldo */
+            color: #28a745; /* Color verde para el saldo */
+            margin-bottom: 1.5rem; /* Margen inferior */
+            text-align: center; /* Centrar el texto */
+            font-weight: bold; /* Negrita */
+        }
+        h2 {
+            font-size: 1.8rem; /* Tamaño de fuente para los subtítulos */
+            margin-top: 1.5rem; /* Margen superior */
+            margin-bottom: 0.5rem; /* Margen inferior */
+        }
+        .btn-primary {
+            background-color: #ff4081; /* Color del botón */
+            border-color: #ff4081; /* Color del borde */
+            transition: background-color 0.3s; /* Transición suave */
+        }
+        .btn-primary:hover {
+            background-color: #ff1f57; /* Color del botón al pasar el ratón */
+            border-color: #ff1f57; /* Color del borde al pasar el ratón */
+        }
+        .alert {
+            margin-top: 20px; /* Margen superior para la alerta */
+        }
+        .return-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #007bff; /* Color del botón de regresar */
+            border: none;
+            color: white; /* Texto blanco */
+            padding: 10px 15px; /* Espaciado interno */
+            border-radius: 5px; /* Bordes redondeados */
+            transition: background-color 0.3s; /* Transición suave */
+        }
+        .return-button:hover {
+            background-color: #0056b3; /* Color al pasar el ratón */
+        }
+        .form-group label {
+            font-weight: bold; /* Negrita para las etiquetas */
+            margin-bottom: 0.5rem; /* Margen inferior */
+        }
+        input {
+            font-size: 1rem; /* Tamaño de fuente para los inputs */
+        }
+        @media (max-width: 576px) {
+            .container {
+                padding: 1.5rem; /* Ajustar espaciado en pantallas pequeñas */
+            }
+            h1 {
+                font-size: 2rem; /* Tamaño de fuente menor en pantallas pequeñas */
+            }
+            .saldo {
+                font-size: 1.3rem; /* Tamaño de fuente menor en pantallas pequeñas */
+            }
+            h2 {
+                font-size: 1.5rem; /* Tamaño de fuente menor para subtítulos en pantallas pequeñas */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/login" class="return-button">Regresar a Inicio de Sesión</a>
+
+        <h1>Consulta de Saldo</h1>
+
+        <div class="mt-4">
+            <h2>Saldo Disponible</h2>
+            <p class="saldo" th:text="'Tu saldo actual es: ' + ${saldo} + ' $'"></p>
+        </div>
+
+        <div class="mt-4">
+            <h2>Realizar Transferencia</h2>
+            <form th:action="@{/transferir}" method="post" onsubmit="return confirmTransfer();">
+                <input type="hidden" name="cuentaId" th:value="${cuentaId}" />
+                <div class="form-group">
+                    <label for="cuentaDestinoId">ID de Cuenta Destino</label>
+                    <input type="number" id="cuentaDestinoId" name="cuentaDestinoId" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="monto">Monto a Transferir</label>
+                    <input type="number" id="monto" name="monto" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Transferir</button>
+            </form>
+
+            <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
+            <div th:if="${transferSuccess}" class="alert alert-success mt-3" th:text="'Transferencia realizada con éxito. Monto: ' + ${monto} + ' a la cuenta ID: ' + ${cuentaDestinoId}"></div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function confirmTransfer() {
+            var monto = document.getElementById('monto').value;
+            var cuentaDestinoId = document.getElementById('cuentaDestinoId').value;
+            return confirm('¿Estás seguro que deseas transferir ' + monto + ' a la cuenta ID: ' + cuentaDestinoId + '?');
+        }
+    </script>
+</body>
+</html>
